@@ -39,6 +39,7 @@ ADD files/default /etc/nginx/sites-available/default
 ADD files/supervisord.conf /etc/supervisor/supervisord.conf
 ADD files/php-fpm.conf /etc/php5/fpm/php-fpm.conf
 ADD files/start.sh /usr/local/bin/start.sh
+RUN chmod 777 /usr/local/bin/start.sh
 
 #permissões da pasta e mysql database
 WORKDIR /var/www
