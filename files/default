@@ -3,12 +3,12 @@
 # set $MAGE_MODE developer; # or production or developer
 #
 # Example configuration:
+
 upstream fastcgi_backend {
     server   unix:/var/run/php5-fpm.sock;
 }
 
 server {
-
     listen 80;
     server_name _;
     set $MAGE_ROOT /var/www/magento2;
@@ -34,13 +34,13 @@ server {
             include        fastcgi_params;
         }
 
-#        location ~ ^/setup/(?!pub/). {
- #           deny all;
- #       }
+        #location ~ ^/setup/(?!pub/). {
+        #    deny all;
+        #}
 
-#        location ~ ^/setup/pub/ {
-#            add_header X-Frame-Options "SAMEORIGIN";
-#        }
+        location ~ ^/setup/pub/ {
+            add_header X-Frame-Options "SAMEORIGIN";
+        }
     }
 
     location /update {
@@ -60,9 +60,9 @@ server {
         #    deny all;
         #}
 
-        #location ~ ^/update/pub/ {
-         #   add_header X-Frame-Options "SAMEORIGIN";
-        #}
+        location ~ ^/update/pub/ {
+            add_header X-Frame-Options "SAMEORIGIN";
+        }
     }
 
     location / {
@@ -74,7 +74,7 @@ server {
             deny all;
         }
         alias $MAGE_ROOT/pub;
-        #add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-Frame-Options "SAMEORIGIN";
     }
 
     location /static/ {
@@ -83,7 +83,7 @@ server {
         }
         location ~* \.(ico|jpg|jpeg|png|gif|svg|js|css|swf|eot|ttf|otf|woff|woff2)$ {
             add_header Cache-Control "public";
-          #  add_header X-Frame-Options "SAMEORIGIN";
+            add_header X-Frame-Options "SAMEORIGIN";
             expires +1y;
 
             if (!-f $request_filename) {
@@ -92,7 +92,7 @@ server {
         }
         location ~* \.(zip|gz|gzip|bz2|csv|xml)$ {
             add_header Cache-Control "no-store";
-         #   add_header X-Frame-Options "SAMEORIGIN";
+            add_header X-Frame-Options "SAMEORIGIN";
             expires    off;
 
             if (!-f $request_filename) {
@@ -102,7 +102,7 @@ server {
         if (!-f $request_filename) {
             rewrite ^/static/(version\d*/)?(.*)$ /static.php?resource=$2 last;
         }
-        #add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-Frame-Options "SAMEORIGIN";
     }
 
     location /media/ {
@@ -120,11 +120,11 @@ server {
         }
         location ~* \.(zip|gz|gzip|bz2|csv|xml)$ {
             add_header Cache-Control "no-store";
-          #  add_header X-Frame-Options "SAMEORIGIN";
+            add_header X-Frame-Options "SAMEORIGIN";
             expires    off;
             try_files $uri $uri/ /get.php?$args;
         }
-        #add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-Frame-Options "SAMEORIGIN";
     }
 
     location /media/customer/ {

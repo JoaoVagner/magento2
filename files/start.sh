@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo "1 -- Iniciando serviços";
-service redis-server start
-service mysql start
-service php5-fpm start
-service nginx start
+/etc/init.d redis-server start
+/etc/init.d mysql start
+/etc/init.d php5-fpm start
+/etc/init.d nginx start
 
 echo "2 -- Composer";
 cd /var/www/magento2 && composer install;
