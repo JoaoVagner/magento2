@@ -1,0 +1,23 @@
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<fieldset class="admin__field" css="_required: required">
+    <legend class="admin__field-label">
+        <span text="label"/>
+    </legend><br />
+    <div class="admin__field-control" css="'admin__control-fields': $data.breakLine, 'admin__control-grouped': !$data.breakLine">
+        <each args="elems">
+            <if args="visible">
+                <render args="$parent.fieldTemplate" if="element.input_type != 'checkbox' || element.input_type != 'radio'"/>
+                <render args="elementTmpl" if="element.input_type == 'checkbox' || element.input_type == 'radio'"/>
+            </if>
+        </each>
+
+        <each args="elems" if="validateWholeGroup">
+            <label class="admin__field-error" if="error() && visible()" attr="for: uid" text="error"/>
+        </each>
+    </div>
+</fieldset>
